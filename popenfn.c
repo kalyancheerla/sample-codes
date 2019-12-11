@@ -28,6 +28,11 @@ int main (int argc, char *argv[])
                 fprintf (stdout, "[+] %s", cmd_buffer);
             }
         }
+        if (pclose (fp) != 0)
+        {
+            fprintf (stderr, "Unable to close the pipe\n");
+            return 3;
+        }
     }
     return 0;
 }
