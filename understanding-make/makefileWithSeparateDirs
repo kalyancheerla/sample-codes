@@ -1,0 +1,83 @@
+# Usage:
+# make        - compile all binary
+# make clean  - remove ALL binaries and objects
+# Project Dir Structure:
+#   project
+#   ├── build_Linux
+#   │   ├── bin
+#   │   │   ├── main
+#   │   │   └── verifyNum
+#   │   └── lib
+#   │       ├── isBufNumeric.o
+#   │       ├── isPrime.o
+#   │       └── primeDigitCnt.o
+#   ├── inc
+#   │   └── zigzag.h
+#   ├── include
+#   │   └── kcompiler.h
+#   ├── lib
+#   │   ├── isBufNumeric.c
+#   │   ├── isPrime.c
+#   │   └── primeDigitCnt.c
+#   ├── Makefile
+#   └── src
+#       ├── main.c
+#       └── verifyNum.c
+
+RM := rm
+CC := gcc
+CF_FLAGS := -Wall -g
+MKDIR_P := mkdir -p
+
+OSTYPE := $(shell uname)
+BUILD_DIR := build_$(OSTYPE)
+
+# Required Libraries during linking i.e., LINKERFLAGS
+LIBRARIES := -lm
+
+# Add header files folder here
+INC_DIR := include
+INC_DIR += inc
+INCLUDES := $(addprefix -I, $(INC_DIR)/)
+
+# Add library files here
+LIB := isBufNumeric.c
+LIB += isPrime.c
+LIB += primeDigitCnt.c
+
+LIB_DIR := lib
+OBJ_DIR := $(BUILD_DIR)/lib
+OBJ_FILES := $(patsubst %.c,$(OBJ_DIR)/%.o,$(LIB))
+
+# Add source files here
+SRC := verifyNum.c
+SRC += main.c
+
+SRC_DIR := src
+BIN_DIR := $(BUILD_DIR)/bin
+BIN_FILES := $(patsubst %.c,$(BIN_DIR)/%,$(SRC))
+
+.PHONY: all build_message build clean
+
+all: build_message build
+
+build_message:
+	@echo "Trying to build your Awesome project!"
+	@echo "Creating Binary files for files in $(SRC_DIR)..."
+	@echo "Creating Object files for files in $(LIB_DIR)..."
+
+build: build_dir $(BIN_FILES) $(OBJ_FILES)
+
+build_dir:
+	$(MKDIR_P) $(OBJ_DIR) $(BIN_DIR)
+
+$(BIN_FILES): $(BIN_DIR)/%: $(SRC_DIR)/%.c $(OBJ_FILES)
+	$(CC) $(CF_FLAGS) $(INCLUDES) $(LIBRARIES) -o $@ $< \
+	$(OBJ_FILES)
+
+$(OBJ_FILES): $(OBJ_DIR)/%.o: $(LIB_DIR)/%.c
+	$(CC) $(CF_FLAGS) $(INCLUDES) -o $@ -c $<
+
+clean:
+	@echo "Cleaning up..."
+	$(RM) -rvf $(OBJ_FILES) $(BIN_FILES)
