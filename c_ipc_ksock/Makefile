@@ -34,6 +34,7 @@ BIN_FILES := $(patsubst %.c,$(BIN_DIR)/%,$(SRC))
 
 # Add toolsrc files here
 TOOLSRC := TestIsBufNumeric.c
+TOOLSRC += TestSndMsg2NxtQ.c
 
 TOOLSRC_DIR := toolsrc
 TOOLBIN_DIR := $(BUILD_DIR)/toolbin

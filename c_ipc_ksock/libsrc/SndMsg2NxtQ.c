@@ -52,16 +52,19 @@ int SndMsg2NxtQ (int queueNo, char *msgPtr, int msgLen)
     }
 
     funcRc = write (nxtQFd, msgPtr, msgLen);
-    if ((funcRc != msgLen) && (funcRc > 0))
+    if (funcRc != msgLen)
     {
-        (void) fprintf (stderr, "write() function wrote partially with "
-                        "rc: %d\n", funcRc);
-        return RC_FAILURE;
-    }
-    else
-    {
-        perror ("write() failed");
-        exit RC_ERROR;
+        if (funcRc > 0)
+        {
+            (void) fprintf (stderr, "write() function wrote partially with "
+                            "rc: %d\n", funcRc);
+            return RC_FAILURE;
+        }
+        else
+        {
+            perror ("write() failed");
+            exit RC_ERROR;
+        }
     }
 
     (void) fprintf (stdout, "SndMsg2NxtQ() - exited successfully\n");

@@ -8,22 +8,25 @@ int main (int argc, char *argv[])
 {
     int funcRc = 0;
 
-    (void) fprintf (stdout, "verifyNum - argc: %d, argv: %p\n", argc, argv);
+    (void) fprintf (stdout, "TestIsBufNumeric - argc: %d, argv: %p\n",
+                    argc, argv);
 
     if (--argc != 1)
     {
-        (void) fprintf (stderr, "verifyNum - Only 1 arg is required\n");
+        (void) fprintf (stderr, "TestIsBufNumeric - Only 1 arg is required\n");
         return RC_FAILURE;
     }
 
     funcRc = IsBufNumeric (argv[1], strlen(argv[1]));
     if (funcRc != RC_SUCCESS)
     {
-        (void) fprintf (stderr, "verifyNum - IsBufNumeric() failed with "
+        (void) fprintf (stderr, "TestIsBufNumeric - IsBufNumeric() failed with "
                         "rc: %d\n", funcRc);
         return RC_FAILURE;
     }
 
-    (void) fprintf (stdout, "verifyNum - exited successfully\n");
+    (void) fprintf (stdout, "TestIsBufNumeric - exited successfully\n");
     return RC_SUCCESS;
-}
+} /* End of main() */
+
+/* End of TestIsBufNumeric.c */
