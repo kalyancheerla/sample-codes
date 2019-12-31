@@ -27,7 +27,10 @@ int SndMsg2NxtQ (int queueNo, char *msgPtr, int msgLen)
     (void) fprintf (stdout, "SndMsg2NxtQ() - queueNo: %d, msgPtr: %p "
                     "msgLen: %d\n", queueNo, msgPtr, msgLen);
 
-    if ((msgPtr == NULL) && (msgLen < 0) && (msgLen > KSOCK_MSG_MAX_SZ))
+    if ((queueNo < 0) &&
+        (msgPtr == NULL) &&
+        (msgLen < 0) &&
+        (msgLen > KSOCK_MSG_MAX_SZ))
     {
         (void) fprintf (stderr, "SndMsg2NxtQ() - Invaild Input Args\n");
         return RC_FAILURE;

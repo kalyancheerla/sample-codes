@@ -26,7 +26,8 @@ OBJ_DIR := $(BUILD_DIR)/obj
 OBJ_FILES := $(patsubst %.c,$(OBJ_DIR)/%.o,$(LIB))
 
 # Add source files here
-SRC := verifyNum.c
+SRC := PG_KSOCK01.c
+SRC += PG_KSOCK05.c
 
 SRC_DIR := src
 BIN_DIR := $(BUILD_DIR)/bin
