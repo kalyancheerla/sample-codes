@@ -4,18 +4,19 @@ import sys
 import json
 
 def replyParser(commentsDict):
-    if bool(commentsDict) is True:
-        for i in range(0, len(commentsDict)):
+    replyCount = 0
+    funcRc = 0
+    if bool(commentsDict) is True:                                                                                                                                                                      for i in range(0, len(commentsDict)):                                                                                                                                                               replyCount = replyCount + 1
             print(" \__ {0}:\n{1}" .format(commentsDict[i]['author']['name'],
                   commentsDict[i]['text']))
-            replyParser(commentsDict[i]['comments'])
-
-def main(argv):
-    if len(argv[1:]) != 1:
-        print("{0}: More than 1 arg, exit code {1}" .format(argv[0], 2))
+            funcRc = replyParser(commentsDict[i]['comments'])
+    return (replyCount + funcRc)
+                                                                                                                                                                                                def main(argv):
+    commentBlocks = 0
+    replyCount = 0
+    if len(argv[1:]) != 1:                                                                                                                                                                              print("{0}: More than 1 arg, exit code {1}" .format(argv[0], 2))
         exit(2)
-
-    jsonFileName = argv[1]
+                                                                                                                                                                                                    jsonFileName = argv[1]
     with open(jsonFileName, 'r') as jsonFile:
         jsonDict = json.load(jsonFile)
 
@@ -26,10 +27,13 @@ def main(argv):
             except:
                 print("\nNO FILE NAME, PR COMMENTS")
 
+            commentBlocks = commentBlocks + 1
             print("{1}:\n{0}" .format(jsonDict['values'][i]['comment']['text'],
                   jsonDict['values'][i]['comment']['author']['name']))
 
-            replyParser(jsonDict['values'][i]['comment']['comments'])
+            replyCount += replyParser(jsonDict['values'][i]['comment']['comments'])
+
+    print("\n\nSTATS:\nNo. of comments is {0}" .format(replyCount + commentBlocks))
 
 if __name__ == "__main__":
     main(sys.argv)
