@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/bin/env python
 
 import sys
 import json
@@ -6,17 +6,22 @@ import json
 def replyParser(commentsDict):
     replyCount = 0
     funcRc = 0
-    if bool(commentsDict) is True:                                                                                                                                                                      for i in range(0, len(commentsDict)):                                                                                                                                                               replyCount = replyCount + 1
+    if bool(commentsDict) is True:
+        for i in range(0, len(commentsDict)):
+            replyCount = replyCount + 1
             print(" \__ {0}:\n{1}" .format(commentsDict[i]['author']['name'],
                   commentsDict[i]['text']))
             funcRc = replyParser(commentsDict[i]['comments'])
     return (replyCount + funcRc)
-                                                                                                                                                                                                def main(argv):
+
+def main(argv):
     commentBlocks = 0
     replyCount = 0
-    if len(argv[1:]) != 1:                                                                                                                                                                              print("{0}: More than 1 arg, exit code {1}" .format(argv[0], 2))
+    if len(argv[1:]) != 1:
+        print("{0}: More than 1 arg, exit code {1}" .format(argv[0], 2))
         exit(2)
-                                                                                                                                                                                                    jsonFileName = argv[1]
+
+    jsonFileName = argv[1]
     with open(jsonFileName, 'r') as jsonFile:
         jsonDict = json.load(jsonFile)
 
