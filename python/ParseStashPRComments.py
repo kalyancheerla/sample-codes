@@ -9,8 +9,10 @@ def replyParser(commentsDict):
     if bool(commentsDict) is True:
         for i in range(0, len(commentsDict)):
             replyCount = replyCount + 1
-            print(" \__ {0}:\n{1}" .format(commentsDict[i]['author']['name'],
-                  commentsDict[i]['text']))
+            print(" \__ {0} ({1}):\n{2}"
+                  .format(commentsDict[i]['author']['name'],
+                          commentsDict[i]['author']['displayName'],
+                          commentsDict[i]['text']))
             funcRc = replyParser(commentsDict[i]['comments'])
     return (replyCount + funcRc)
 
@@ -33,8 +35,10 @@ def main(argv):
                 print("\nNO FILE NAME, PR COMMENTS")
 
             commentBlocks = commentBlocks + 1
-            print("{1}:\n{0}" .format(jsonDict['values'][i]['comment']['text'],
-                  jsonDict['values'][i]['comment']['author']['name']))
+            print("{0} ({1}):\n{2}"
+                  .format(jsonDict['values'][i]['comment']['author']['name'],
+                          jsonDict['values'][i]['comment']['author']['displayName'],
+                          jsonDict['values'][i]['comment']['text']))
 
             replyCount += replyParser(jsonDict['values'][i]['comment']['comments'])
 
