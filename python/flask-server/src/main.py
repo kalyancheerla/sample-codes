@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hi! buddy'
+    return 'Hello Buddy!'
 
 @app.route('/download')
 def download_file():
@@ -12,4 +12,4 @@ def download_file():
 	return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
