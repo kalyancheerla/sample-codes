@@ -1,6 +1,6 @@
 #!/bin/env python3
 import os
-from flask import Flask, send_from_directory, request, redirect, url_for, flash
+from flask import Flask, flash, request, redirect, send_from_directory, url_for
 from werkzeug.utils import secure_filename
 
 FILES_PATH = '/usr/src/app/files'
@@ -29,7 +29,7 @@ def upload_file():
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
-        if file:
+        else:
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['FILES_PATH'], filename))
             return 'File Uploaded successfully!'
@@ -44,4 +44,5 @@ def upload_file():
     '''
 
 if __name__ == '__main__':
+    app.secret_key = 'super secret key'
     app.run(host='0.0.0.0', debug=True)
