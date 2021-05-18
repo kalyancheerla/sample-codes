@@ -8,6 +8,7 @@
 ################################################################################
 torrent_downloads="$3"
 filename="$2"
+torrentid="$1"
 
 ################################################################################
 # SAMBA share details
@@ -20,7 +21,7 @@ smbloc="New"
 # Log file and other param's
 ################################################################################
 completedpath="torrents"
-logfile="/tmp/smbuplder.log"
+logfile="/tmp/smbuplder_$(printf "${torrentid}" | cut -c-5).log"
 retCd=0
 rc=0
 

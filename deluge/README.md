@@ -1,9 +1,13 @@
 # My deluge headless setup with deluged and deluge-web
----
 ### Some steps to remember
 - Install the deluged and deluge-web from repo's.
     ```
     # apt install -y deluged deluge-web
+    ```
+- Stop the deluged and deluge-web services, if started on install.
+    ```
+    $ systemctl status deluged deluge-web
+    $ systemctl stop deluged deluge-web
     ```
 - Get systemctl service files for [deluged](https://github.com/deluge-torrent/deluge/blob/develop/packaging/systemd/deluged.service) and [deluge-web](https://github.com/deluge-torrent/deluge/blob/develop/packaging/systemd/deluge-web.service) from deluge github.
 - Update the **deluge-web.service** file to enable ssl encryption like below.
@@ -45,8 +49,11 @@
 - Don't use the move completed dir in /root as root dir doesn't have x permission for everyone.
 - x permission is required for a directory to enter into it. If it's nested, parent dir's should contain the x too.
 - Enable the share ratio option to remove at certain limit.
-- Get the **smbuplder.sh** file and move it in the home dir of debian-deluged user (here, /var/lib/deluged/).
+- Get the **smbuplder.sh** file and move it into the home dir of debian-deluged user (here, /var/lib/deluged/).
 - Provide appropriate permissions for the file and also update the file to have correct ip, username and passwd.
+    ```
+    -rwxr-x--- 1 debian-deluged debian-deluged 2560 May 17 17:30 /var/lib/deluged/smbuplder.sh
+    ```
 - Enable the execute plugin and add the below line for torrent removed.
     ```
     /var/lib/deluged/smbuplder.sh
