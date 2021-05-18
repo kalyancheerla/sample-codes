@@ -3,10 +3,10 @@
 ### Some steps to remember
 - Install the deluged and deluge-web from repo's.
     ```
-    \# apt install -y deluged deluge-web
+    # apt install -y deluged deluge-web
     ```
-- Get systemctl service files for [deluged](https://github.com/deluge-torrent/deluge/blob/develop/packaging/systemd/deluged.service) and [deluge-web](https://github.com/deluge-torrent/deluge/blob/develop/packaging/systemd/deluge-web.service).
-- Update the deluge-web.service file to enable ssl encryption like below.
+- Get systemctl service files for [deluged](https://github.com/deluge-torrent/deluge/blob/develop/packaging/systemd/deluged.service) and [deluge-web](https://github.com/deluge-torrent/deluge/blob/develop/packaging/systemd/deluge-web.service) from deluge github.
+- Update the **deluge-web.service** file to enable ssl encryption like below.
     ```
     ExecStart=/usr/bin/deluge-web -d --ssl
     ```
@@ -18,8 +18,8 @@
     Group=debian-deluged
     UMask=007
     ```
-- Here, we are going to use the already created debian-deluged user/group when installed.
-- Copy these 2 edited service files into /etc/systemd/system/ dir.
+- Here, we are going to use the already created **debian-deluged** user/group when installed.
+- Copy these 2 edited service files into **/etc/systemd/system/** dir.
 - Do the daemon-reload as service files got updated.
     ```
     $ systemctl daemon-reload
@@ -34,7 +34,7 @@
     $ systemctl start deluged
     $ systemctl start deluge-web
     ```
-- Go to **https://<ip>:8112** in a browser and type *deluge* for default passwd.
+- Go to **https://\<ip\>:8112** in a browser and type *deluge* for default passwd.
 - Update the password.
 - Add the global download and upload limit's.
 - Enable move completed to a different directory with appropriate permissions like below.
